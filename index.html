@@ -1,0 +1,1749 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Yang Du, PhD — Laboratory of GPCR Structural Pharmacology · CUHK-Shenzhen</title>
+<meta name="description" content="The laboratory of Prof. Yang Du at the Kobilka Institute of Innovative Drug Discovery, School of Medicine, CUHK-Shenzhen — structural and pharmacological studies of human G protein-coupled receptors, with AI-augmented structure-based drug discovery." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400&family=IBM+Plex+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Noto+Serif+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  /* ---------- DESIGN TOKENS ---------- */
+  :root {
+    --paper: #f1ead9;
+    --paper-2: #ebe2cc;
+    --paper-3: #e2d8be;
+    --ink: #161d2e;
+    --ink-2: #2a3142;
+    --ink-soft: #4a5163;
+    --ink-mute: #6e7383;
+    --rule: rgba(22,29,46,0.18);
+    --rule-soft: rgba(22,29,46,0.10);
+
+    --crimson: #862140;
+    --crimson-deep: #5e1a31;
+    --gold: #b08434;
+    --gold-soft: #d4b269;
+    --steel: #2c4a5e;
+    --sage: #5d6b54;
+    --copper: #b86e3a;
+
+    --font-serif: "Fraunces", "Noto Serif SC", Georgia, serif;
+    --font-sans: "IBM Plex Sans", "Noto Serif SC", -apple-system, sans-serif;
+    --font-mono: "JetBrains Mono", ui-monospace, monospace;
+    --font-cn: "Noto Serif SC", "Fraunces", serif;
+
+    --maxw: 1280px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    font-size: 16px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+    background-image:
+      radial-gradient(circle at 1px 1px, rgba(22,29,46,0.05) 1px, transparent 0);
+    background-size: 28px 28px;
+  }
+
+  ::selection { background: var(--ink); color: var(--paper); }
+
+  /* ---------- TYPOGRAPHY ---------- */
+  .display {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    font-variation-settings: "opsz" 100, "SOFT" 30;
+    letter-spacing: -0.02em;
+    line-height: 1.02;
+  }
+  .display em {
+    font-style: italic;
+    font-variation-settings: "opsz" 100, "SOFT" 80;
+    color: var(--crimson);
+  }
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--ink-mute);
+  }
+  .eyebrow .num { color: var(--crimson); margin-right: 8px; }
+  .ink-soft { color: var(--ink-soft); }
+  .mono { font-family: var(--font-mono); }
+  .cn { font-family: var(--font-cn); }
+
+  a { color: inherit; text-decoration: none; }
+  a.link {
+    color: var(--ink);
+    border-bottom: 1px solid var(--rule);
+    transition: border-color 0.2s, color 0.2s;
+  }
+  a.link:hover { border-color: var(--crimson); color: var(--crimson); }
+
+  /* ---------- NAVIGATION ---------- */
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(241, 234, 217, 0.85);
+    backdrop-filter: saturate(120%) blur(10px);
+    -webkit-backdrop-filter: saturate(120%) blur(10px);
+    border-bottom: 1px solid var(--rule);
+  }
+  .nav-inner {
+    max-width: var(--maxw);
+    margin: 0 auto;
+    padding: 18px 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 32px;
+  }
+  .nav-brand {
+    font-family: var(--font-serif);
+    font-size: 20px;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .nav-brand .mark {
+    width: 28px; height: 28px;
+    display: inline-flex; align-items: center; justify-content: center;
+  }
+  .nav-brand .name-cn {
+    font-family: var(--font-cn);
+    font-size: 17px;
+    color: var(--ink-mute);
+    margin-left: 2px;
+  }
+  .nav-links {
+    display: flex;
+    gap: 28px;
+    font-size: 13.5px;
+    color: var(--ink-soft);
+  }
+  .nav-links a {
+    position: relative;
+    padding: 4px 0;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--crimson); }
+  .nav-links a::after {
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    left: 0; right: 0;
+    height: 1px;
+    background: var(--crimson);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+  }
+  .nav-links a:hover::after { transform: scaleX(1); }
+
+  @media (max-width: 800px) {
+    .nav-links { display: none; }
+    .nav-inner { padding: 16px 22px; }
+  }
+
+  /* ---------- LAYOUT ---------- */
+  .container {
+    max-width: var(--maxw);
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+  @media (max-width: 700px) {
+    .container { padding: 0 22px; }
+  }
+  section { position: relative; }
+
+  /* ---------- HERO ---------- */
+  .hero {
+    padding: 90px 0 60px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 64px;
+    align-items: start;
+  }
+  .hero-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 28px;
+  }
+  .hero-eyebrow .line {
+    flex: 0 0 64px;
+    height: 1px;
+    background: var(--ink);
+  }
+  .hero h1 {
+    font-size: clamp(54px, 8vw, 116px);
+    margin-bottom: 28px;
+  }
+  .hero h1 .row { display: block; }
+  .hero h1 .row-2 {
+    padding-left: clamp(40px, 8vw, 110px);
+    font-style: italic;
+    color: var(--crimson);
+    font-variation-settings: "opsz" 144, "SOFT" 100;
+  }
+  .hero .cn-name {
+    font-family: var(--font-cn);
+    font-size: 24px;
+    color: var(--ink-mute);
+    letter-spacing: 0.04em;
+    margin-bottom: 10px;
+    font-weight: 500;
+  }
+  .hero-titles {
+    margin-top: 36px;
+    padding-top: 28px;
+    border-top: 1px solid var(--rule);
+    display: grid;
+    grid-template-columns: auto 1fr;
+    column-gap: 32px;
+    row-gap: 14px;
+    font-size: 14px;
+  }
+  .hero-titles dt {
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+    padding-top: 3px;
+  }
+  .hero-titles dd { color: var(--ink-soft); line-height: 1.55; }
+
+  .hero-side {
+    position: relative;
+    padding-top: 30px;
+  }
+  .hero-visual {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1 / 1.05;
+    border: 1px solid var(--rule);
+    background: var(--paper-2);
+    overflow: hidden;
+  }
+  .hero-visual::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(22,29,46,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(22,29,46,0.04) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+  .hero-visual svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+  .hero-caption {
+    margin-top: 16px;
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    color: var(--ink-mute);
+    letter-spacing: 0.08em;
+    line-height: 1.6;
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+  }
+  .hero-caption .cap-key { color: var(--crimson); font-weight: 500; }
+
+  @media (max-width: 900px) {
+    .hero-grid { grid-template-columns: 1fr; gap: 48px; }
+    .hero-side { padding-top: 0; }
+    .hero h1 .row-2 { padding-left: 36px; }
+  }
+
+  /* ---------- STAT STRIP ---------- */
+  .stats {
+    border-top: 1px solid var(--ink);
+    border-bottom: 1px solid var(--rule);
+    margin-top: 60px;
+    background: var(--paper-2);
+  }
+  .stats-grid {
+    max-width: var(--maxw);
+    margin: 0 auto;
+    padding: 28px 32px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 32px;
+  }
+  .stat { position: relative; }
+  .stat:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    top: 4px; bottom: 4px; right: -16px;
+    width: 1px;
+    background: var(--rule);
+  }
+  .stat .n {
+    font-family: var(--font-serif);
+    font-size: 44px;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    line-height: 1;
+    color: var(--ink);
+  }
+  .stat .n em { font-style: italic; color: var(--crimson); }
+  .stat .n .sm { font-size: 18px; color: var(--ink-mute); }
+  .stat .label {
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+    margin-top: 8px;
+  }
+  @media (max-width: 700px) {
+    .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; }
+    .stat:nth-child(2)::after { display: none; }
+  }
+
+  /* ---------- SECTION FRAMING ---------- */
+  .section {
+    padding: 110px 0 90px;
+  }
+  .section-head {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 48px;
+    margin-bottom: 60px;
+    align-items: start;
+  }
+  .section-head .label {
+    padding-top: 6px;
+  }
+  .section-head h2 {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    font-size: clamp(34px, 4.5vw, 56px);
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+    max-width: 760px;
+  }
+  .section-head h2 em {
+    font-style: italic;
+    color: var(--crimson);
+    font-variation-settings: "opsz" 144, "SOFT" 100;
+  }
+  @media (max-width: 800px) {
+    .section-head { grid-template-columns: 1fr; gap: 16px; margin-bottom: 40px; }
+  }
+
+  /* ---------- ABOUT ---------- */
+  .about-body {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 48px;
+    align-items: start;
+  }
+  .about-body .drop { padding-top: 4px; }
+  .bio p {
+    font-size: 17px;
+    line-height: 1.7;
+    color: var(--ink-2);
+    max-width: 720px;
+    margin-bottom: 22px;
+  }
+  .bio p:first-of-type::first-letter {
+    font-family: var(--font-serif);
+    font-size: 62px;
+    line-height: 0.9;
+    float: left;
+    padding: 8px 12px 0 0;
+    color: var(--crimson);
+    font-weight: 500;
+  }
+  .bio strong { color: var(--ink); font-weight: 600; }
+
+  /* Timeline */
+  .timeline {
+    margin-top: 56px;
+    border-top: 1px solid var(--rule);
+    padding-top: 36px;
+  }
+  .timeline-title {
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+    margin-bottom: 28px;
+  }
+  .timeline-row {
+    display: grid;
+    grid-template-columns: 130px 1fr 1.5fr;
+    gap: 24px;
+    padding: 18px 0;
+    border-top: 1px solid var(--rule-soft);
+    align-items: baseline;
+  }
+  .timeline-row:first-of-type { border-top: none; }
+  .timeline-row .year {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--crimson);
+    letter-spacing: 0.02em;
+  }
+  .timeline-row .role {
+    font-family: var(--font-serif);
+    font-size: 18px;
+    color: var(--ink);
+    line-height: 1.3;
+  }
+  .timeline-row .place {
+    font-size: 13.5px;
+    color: var(--ink-soft);
+  }
+  @media (max-width: 800px) {
+    .about-body { grid-template-columns: 1fr; gap: 12px; }
+    .timeline-row { grid-template-columns: 100px 1fr; }
+    .timeline-row .place { grid-column: 1 / -1; padding-left: 100px; }
+  }
+
+  /* ---------- RESEARCH ---------- */
+  .research-intro {
+    max-width: 760px;
+    font-size: 17px;
+    line-height: 1.7;
+    color: var(--ink-2);
+    margin-left: 248px;
+    margin-bottom: 60px;
+  }
+  @media (max-width: 800px) { .research-intro { margin-left: 0; } }
+
+  .pillars {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    border-top: 1px solid var(--ink);
+    border-bottom: 1px solid var(--ink);
+  }
+  .pillar {
+    padding: 32px 28px 36px;
+    border-right: 1px solid var(--rule);
+    position: relative;
+    background: var(--paper);
+    transition: background 0.3s;
+  }
+  .pillar:last-child { border-right: none; }
+  .pillar:hover { background: var(--paper-2); }
+  .pillar .num {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--crimson);
+    letter-spacing: 0.16em;
+    margin-bottom: 24px;
+  }
+  .pillar .vis {
+    width: 100%;
+    aspect-ratio: 1 / 0.62;
+    margin-bottom: 28px;
+    background: var(--paper-3);
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--rule);
+  }
+  .pillar .vis svg { width: 100%; height: 100%; display: block; }
+  .pillar h3 {
+    font-family: var(--font-serif);
+    font-size: 24px;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    margin-bottom: 14px;
+    line-height: 1.2;
+    color: var(--ink);
+  }
+  .pillar h3 em { font-style: italic; color: var(--crimson); }
+  .pillar p {
+    font-size: 14.5px;
+    line-height: 1.65;
+    color: var(--ink-soft);
+  }
+  .pillar .keywords {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 20px;
+  }
+  .pillar .keywords span {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 4px 8px;
+    border: 1px solid var(--rule);
+    color: var(--ink-mute);
+    background: var(--paper);
+  }
+  @media (max-width: 800px) {
+    .pillars { grid-template-columns: 1fr; }
+    .pillar { border-right: none; border-bottom: 1px solid var(--rule); }
+    .pillar:last-child { border-bottom: none; }
+  }
+
+  /* ---------- PUBLICATIONS ---------- */
+  .pub-section { background: var(--paper-2); }
+  .pubs {
+    border-top: 1px solid var(--ink);
+  }
+  .pub {
+    display: grid;
+    grid-template-columns: 70px 130px 1fr 180px;
+    gap: 28px;
+    padding: 24px 0;
+    border-bottom: 1px solid var(--rule);
+    align-items: start;
+    transition: padding 0.25s;
+  }
+  .pub:hover { background: rgba(255,255,255,0.4); }
+  .pub-no {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--ink-mute);
+    padding-top: 4px;
+    letter-spacing: 0.04em;
+  }
+  .pub-year {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--crimson);
+    padding-top: 4px;
+    letter-spacing: 0.04em;
+  }
+  .pub-title {
+    font-family: var(--font-serif);
+    font-size: 19px;
+    line-height: 1.3;
+    color: var(--ink);
+    font-weight: 400;
+    margin-bottom: 6px;
+  }
+  .pub-title em { font-style: italic; }
+  .pub-authors {
+    font-size: 13px;
+    color: var(--ink-soft);
+    line-height: 1.55;
+  }
+  .pub-authors b { color: var(--crimson); font-weight: 600; }
+  .pub-venue {
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ink);
+    padding-top: 6px;
+    text-align: right;
+  }
+  .pub-venue .impact {
+    display: inline-block;
+    margin-left: 8px;
+    padding: 2px 6px;
+    background: var(--ink);
+    color: var(--paper);
+    font-size: 9.5px;
+    letter-spacing: 0.1em;
+    font-weight: 500;
+  }
+  @media (max-width: 1000px) {
+    .pub { grid-template-columns: 50px 1fr; gap: 18px; }
+    .pub-year { grid-column: 2; order: 0; padding-top: 0; margin-bottom: 4px; }
+    .pub-content { grid-column: 2; }
+    .pub-venue { grid-column: 2; text-align: left; padding-top: 8px; }
+  }
+
+  /* ---------- HONORS ---------- */
+  .honors-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0;
+    border-top: 1px solid var(--ink);
+  }
+  .honor {
+    padding: 22px 24px;
+    border-bottom: 1px solid var(--rule);
+    display: flex;
+    justify-content: space-between;
+    gap: 24px;
+    align-items: baseline;
+  }
+  .honor:nth-child(odd) { border-right: 1px solid var(--rule); }
+  .honor .name {
+    font-family: var(--font-serif);
+    font-size: 17px;
+    line-height: 1.3;
+    color: var(--ink);
+    flex: 1;
+  }
+  .honor .name em { font-style: italic; color: var(--crimson); }
+  .honor .yr {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--ink-mute);
+    letter-spacing: 0.04em;
+    flex-shrink: 0;
+  }
+  @media (max-width: 800px) {
+    .honors-grid { grid-template-columns: 1fr; }
+    .honor:nth-child(odd) { border-right: none; }
+  }
+
+  /* ---------- PEOPLE ---------- */
+  .people-section {
+    background:
+      linear-gradient(180deg, var(--paper) 0%, var(--paper-2) 100%);
+  }
+  .alumni-block {
+    margin-bottom: 56px;
+  }
+  .alumni-title {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--crimson);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    margin-bottom: 28px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--ink);
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+  .alumni-title .count {
+    font-family: var(--font-serif);
+    font-size: 22px;
+    font-style: italic;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+    text-transform: none;
+  }
+  .alumni-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 28px;
+  }
+  .alumnus {
+    border-left: 2px solid var(--crimson);
+    padding: 6px 0 6px 18px;
+  }
+  .alumnus .nm-cn {
+    font-family: var(--font-cn);
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--ink);
+    margin-bottom: 2px;
+  }
+  .alumnus .nm-en {
+    font-family: var(--font-serif);
+    font-size: 14px;
+    font-style: italic;
+    color: var(--ink-soft);
+    margin-bottom: 10px;
+  }
+  .alumnus .pos {
+    font-size: 12.5px;
+    color: var(--ink-2);
+    line-height: 1.4;
+  }
+  .alumnus .yr {
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    color: var(--ink-mute);
+    letter-spacing: 0.08em;
+    margin-top: 6px;
+  }
+  @media (max-width: 900px) { .alumni-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 500px) { .alumni-grid { grid-template-columns: 1fr; } }
+
+  /* ---------- TEACHING ---------- */
+  .courses {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+  }
+  .course {
+    background: var(--paper);
+    padding: 26px 22px;
+    transition: background 0.3s;
+  }
+  .course:hover { background: var(--paper-2); }
+  .course .code {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--crimson);
+    letter-spacing: 0.08em;
+    margin-bottom: 10px;
+  }
+  .course .ttl {
+    font-family: var(--font-serif);
+    font-size: 18px;
+    line-height: 1.25;
+    color: var(--ink);
+    margin-bottom: 6px;
+  }
+  .course .level {
+    font-size: 12px;
+    color: var(--ink-mute);
+  }
+  @media (max-width: 800px) { .courses { grid-template-columns: 1fr; } }
+
+  /* ---------- CONTACT ---------- */
+  .contact-section {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 110px 0 60px;
+    position: relative;
+    overflow: hidden;
+  }
+  .contact-section .section-head h2 { color: var(--paper); }
+  .contact-section .section-head h2 em { color: var(--gold-soft); }
+  .contact-section .eyebrow { color: rgba(241,234,217,0.5); }
+  .contact-section .eyebrow .num { color: var(--gold-soft); }
+
+  .contact-bg {
+    position: absolute;
+    inset: 0;
+    opacity: 0.18;
+    pointer-events: none;
+  }
+  .contact-bg svg { width: 100%; height: 100%; }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 64px;
+    position: relative;
+    z-index: 2;
+  }
+  .contact-block { }
+  .contact-block .lbl {
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    color: rgba(241,234,217,0.5);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .contact-block .val {
+    font-family: var(--font-serif);
+    font-size: 22px;
+    line-height: 1.4;
+    color: var(--paper);
+    margin-bottom: 36px;
+  }
+  .contact-block .val a { border-bottom: 1px solid rgba(241,234,217,0.3); transition: border-color 0.2s; }
+  .contact-block .val a:hover { border-color: var(--gold-soft); color: var(--gold-soft); }
+  .contact-block .val .sm {
+    display: block;
+    font-family: var(--font-sans);
+    font-size: 14px;
+    color: rgba(241,234,217,0.65);
+    margin-top: 4px;
+    letter-spacing: 0.02em;
+  }
+
+  .join {
+    background: rgba(241,234,217,0.04);
+    border: 1px solid rgba(241,234,217,0.2);
+    padding: 32px 28px;
+  }
+  .join h4 {
+    font-family: var(--font-serif);
+    font-size: 22px;
+    font-weight: 400;
+    margin-bottom: 14px;
+    color: var(--paper);
+  }
+  .join h4 em { font-style: italic; color: var(--gold-soft); }
+  .join p {
+    font-size: 14px;
+    color: rgba(241,234,217,0.75);
+    line-height: 1.65;
+    margin-bottom: 18px;
+  }
+  .join ul {
+    list-style: none;
+    font-size: 13px;
+    color: rgba(241,234,217,0.7);
+  }
+  .join ul li {
+    padding: 6px 0;
+    border-top: 1px solid rgba(241,234,217,0.12);
+    display: flex;
+    gap: 12px;
+  }
+  .join ul li::before {
+    content: "→";
+    color: var(--gold-soft);
+    font-family: var(--font-mono);
+  }
+
+  @media (max-width: 800px) {
+    .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+  }
+
+  /* ---------- FOOTER ---------- */
+  .footer {
+    background: var(--ink);
+    color: rgba(241,234,217,0.6);
+    border-top: 1px solid rgba(241,234,217,0.12);
+    padding: 28px 32px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.04em;
+  }
+  .footer-inner {
+    max-width: var(--maxw);
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+
+  /* ---------- DECORATIVE LINES IN HERO ---------- */
+  .hero-corner {
+    position: absolute;
+    top: 38px; right: 32px;
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    color: var(--ink-mute);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    text-align: right;
+    line-height: 1.9;
+  }
+  .hero-corner .dot {
+    display: inline-block;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--crimson);
+    margin-right: 6px;
+    vertical-align: middle;
+    animation: pulse 2.4s ease-in-out infinite;
+  }
+  @keyframes pulse { 50% { opacity: 0.3; } }
+  @media (max-width: 900px) { .hero-corner { display: none; } }
+
+  /* ---------- ENTRY ANIMATIONS ---------- */
+  .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .reveal.in {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .reveal.d1 { transition-delay: 0.08s; }
+  .reveal.d2 { transition-delay: 0.16s; }
+  .reveal.d3 { transition-delay: 0.24s; }
+  .reveal.d4 { transition-delay: 0.32s; }
+
+  /* Reduce motion */
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; animation: none !important; }
+    .reveal { opacity: 1; transform: none; }
+  }
+
+  /* SVG hover effects in research pillars */
+  .pillar:hover .vis svg .rotate-grp {
+    animation: rotate-slow 24s linear infinite;
+  }
+  @keyframes rotate-slow {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  /* Hero molecular pulse */
+  .hero-visual .pulse-circle {
+    animation: pulse-ring 4s ease-in-out infinite;
+    transform-origin: center;
+  }
+  @keyframes pulse-ring {
+    0%, 100% { opacity: 0.3; transform: scale(0.95); }
+    50% { opacity: 0.7; transform: scale(1.05); }
+  }
+  .hero-visual .helix-rotate {
+    animation: helix-spin 30s linear infinite;
+    transform-origin: center;
+  }
+  @keyframes helix-spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+</style>
+</head>
+<body>
+
+<!-- ============== NAV ============== -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="#top" class="nav-brand">
+      <span class="mark">
+        <svg viewBox="0 0 28 28" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <circle cx="14" cy="14" r="13" fill="none" stroke="#161d2e" stroke-width="1"/>
+          <circle cx="14" cy="14" r="8" fill="none" stroke="#862140" stroke-width="1"/>
+          <circle cx="14" cy="14" r="2.6" fill="#862140"/>
+          <line x1="14" y1="1" x2="14" y2="6" stroke="#161d2e" stroke-width="1"/>
+          <line x1="14" y1="22" x2="14" y2="27" stroke="#161d2e" stroke-width="1"/>
+          <line x1="1" y1="14" x2="6" y2="14" stroke="#161d2e" stroke-width="1"/>
+          <line x1="22" y1="14" x2="27" y2="14" stroke="#161d2e" stroke-width="1"/>
+        </svg>
+      </span>
+      <span>Yang Du Lab</span>
+      <span class="name-cn">杜洋实验室</span>
+    </a>
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#research">Research</a>
+      <a href="#publications">Publications</a>
+      <a href="#honors">Honors</a>
+      <a href="#people">Lab</a>
+      <a href="#teaching">Teaching</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ============== HERO ============== -->
+<section class="hero" id="top">
+  <div class="hero-corner">
+    <span class="dot"></span>Shenzhen · Kobilka Institute · School of Medicine
+  </div>
+  <div class="container">
+    <div class="hero-grid">
+      <div class="hero-text">
+        <div class="hero-eyebrow reveal">
+          <span class="line"></span>
+          <span class="eyebrow"><span class="num">01</span>Principal Investigator</span>
+        </div>
+        <div class="cn-name reveal d1">杜&nbsp;&nbsp;洋</div>
+        <h1 class="display reveal d2">
+          <span class="row">Yang Du,</span>
+          <span class="row row-2">PhD.</span>
+        </h1>
+        <dl class="hero-titles reveal d3">
+          <dt>Position</dt>
+          <dd>Tenured Associate Professor &nbsp;·&nbsp; Principal Investigator</dd>
+
+          <dt>Affiliation</dt>
+          <dd>School of Medicine &nbsp;·&nbsp; Kobilka Institute of Innovative Drug Discovery<br>
+              <span class="cn">香港中文大学（深圳）医学院 · 科比尔卡创新药物发现研究院</span></dd>
+
+          <dt>Service</dt>
+          <dd>Assistant Dean (Faculty Affairs), MED &nbsp;·&nbsp; Associate Head, Division of Biomedical &amp; Health Sciences &nbsp;·&nbsp; Director, Institute of New Medicine</dd>
+
+          <dt>Field</dt>
+          <dd>Structural &amp; molecular pharmacology of human G protein-coupled receptors; cryo-EM; AI-augmented structure-based drug discovery</dd>
+        </dl>
+      </div>
+
+      <div class="hero-side reveal d3">
+        <div class="hero-visual" aria-label="GPCR seven-transmembrane helical bundle, top view">
+          <svg viewBox="0 0 400 420" xmlns="http://www.w3.org/2000/svg">
+            <!-- Outer circular membrane indication -->
+            <g class="helix-rotate">
+              <circle cx="200" cy="210" r="170" fill="none" stroke="#161d2e" stroke-width="0.5" stroke-dasharray="2 4" opacity="0.4"/>
+              <circle cx="200" cy="210" r="155" fill="none" stroke="#161d2e" stroke-width="0.4" opacity="0.25"/>
+            </g>
+
+            <!-- Soft density background (cryo-EM feel) -->
+            <defs>
+              <radialGradient id="density" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="#862140" stop-opacity="0.18"/>
+                <stop offset="55%" stop-color="#b08434" stop-opacity="0.06"/>
+                <stop offset="100%" stop-color="#161d2e" stop-opacity="0"/>
+              </radialGradient>
+              <radialGradient id="density2" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="#2c4a5e" stop-opacity="0.22"/>
+                <stop offset="100%" stop-color="#2c4a5e" stop-opacity="0"/>
+              </radialGradient>
+            </defs>
+            <circle class="pulse-circle" cx="200" cy="210" r="120" fill="url(#density)"/>
+            <ellipse cx="200" cy="215" rx="95" ry="80" fill="url(#density2)" opacity="0.7"/>
+
+            <!-- 7TM helices viewed from extracellular face -->
+            <!-- Each helix: a circular cluster of dots representing turns -->
+            <g id="helices">
+              <!-- TM1 -->
+              <g transform="translate(200,118)">
+                <circle r="22" fill="none" stroke="#161d2e" stroke-width="1.4"/>
+                <circle r="22" fill="#f1ead9" opacity="0.85"/>
+                <circle r="22" fill="none" stroke="#161d2e" stroke-width="1.4"/>
+                <text y="5" text-anchor="middle" font-family="JetBrains Mono" font-size="13" font-weight="500" fill="#161d2e">1</text>
+              </g>
+              <!-- TM2 -->
+              <g transform="translate(120,145)">
+                <circle r="20" fill="#f1ead9"/>
+                <circle r="20" fill="none" stroke="#161d2e" stroke-width="1.3"/>
+                <text y="5" text-anchor="middle" font-family="JetBrains Mono" font-size="12" fill="#161d2e">2</text>
+              </g>
+              <!-- TM3 -->
+              <g transform="translate(110,225)">
+                <circle r="21" fill="#f1ead9"/>
+                <circle r="21" fill="none" stroke="#862140" stroke-width="1.6"/>
+                <text y="5" text-anchor="middle" font-family="JetBrains Mono" font-size="12" font-weight="500" fill="#862140">3</text>
+              </g>
+              <!-- TM4 -->
+              <g transform="translate(165,290)">
+                <circle r="20" fill="#f1ead9"/>
+                <circle r="20" fill="none" stroke="#161d2e" stroke-width="1.3"/>
+                <text y="5" text-anchor="middle" font-family="JetBrains Mono" font-size="12" fill="#161d2e">4</text>
+              </g>
+              <!-- TM5 -->
+              <g transform="translate(255,300)">
+                <circle r="21" fill="#f1ead9"/>
+                <circle r="21" fill="none" stroke="#161d2e" stroke-width="1.3"/>
+                <text y="5" text-anchor="middle" font-family="JetBrains Mono" font-size="12" fill="#161d2e">5</text>
+              </g>
+              <!-- TM6 -->
+              <g transform="translate(305,225)">
+                <circle r="22" fill="#f1ead9"/>
+                <circle r="22" fill="none" stroke="#862140" stroke-width="1.6"/>
+                <text y="5" text-anchor="middle" font-family="JetBrains Mono" font-size="13" font-weight="500" fill="#862140">6</text>
+              </g>
+              <!-- TM7 -->
+              <g transform="translate(285,145)">
+                <circle r="20" fill="#f1ead9"/>
+                <circle r="20" fill="none" stroke="#161d2e" stroke-width="1.3"/>
+                <text y="5" text-anchor="middle" font-family="JetBrains Mono" font-size="12" fill="#161d2e">7</text>
+              </g>
+            </g>
+
+            <!-- Central ligand (small molecule) -->
+            <g transform="translate(200,215)">
+              <circle r="9" fill="#b08434"/>
+              <circle r="9" fill="none" stroke="#161d2e" stroke-width="0.8"/>
+              <circle r="14" fill="none" stroke="#b08434" stroke-width="0.6" stroke-dasharray="1.5 2"/>
+            </g>
+
+            <!-- Connecting loops (curved lines between adjacent helices) -->
+            <g stroke="#161d2e" stroke-width="0.6" fill="none" opacity="0.3">
+              <path d="M 180 120 Q 150 110, 130 135"/>
+              <path d="M 110 165 Q 100 195, 105 215"/>
+              <path d="M 125 245 Q 130 275, 155 285"/>
+              <path d="M 185 295 Q 210 305, 235 295"/>
+              <path d="M 275 290 Q 295 270, 300 245"/>
+              <path d="M 305 205 Q 305 175, 295 160"/>
+            </g>
+
+            <!-- Top axis labels -->
+            <text x="200" y="50" text-anchor="middle" font-family="JetBrains Mono" font-size="9" fill="#6e7383" letter-spacing="2">EXTRACELLULAR</text>
+            <text x="200" y="395" text-anchor="middle" font-family="JetBrains Mono" font-size="9" fill="#6e7383" letter-spacing="2">G-PROTEIN INTERFACE</text>
+
+            <!-- Corner registration marks -->
+            <g stroke="#161d2e" stroke-width="0.7" fill="none">
+              <path d="M 20 20 L 30 20 M 20 20 L 20 30"/>
+              <path d="M 380 20 L 370 20 M 380 20 L 380 30"/>
+              <path d="M 20 400 L 30 400 M 20 400 L 20 390"/>
+              <path d="M 380 400 L 370 400 M 380 400 L 380 390"/>
+            </g>
+          </svg>
+        </div>
+        <div class="hero-caption">
+          <span><span class="cap-key">Fig. 01</span> · Class A GPCR 7TM bundle</span>
+          <span>Top view · Extracellular face</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== STAT STRIP ============== -->
+<div class="stats">
+  <div class="stats-grid">
+    <div class="stat reveal">
+      <div class="n">80<em>+</em></div>
+      <div class="label">Peer-Reviewed Papers</div>
+    </div>
+    <div class="stat reveal d1">
+      <div class="n">¥25M<span class="sm"> RMB</span></div>
+      <div class="label">Total Grant Funding</div>
+    </div>
+    <div class="stat reveal d2">
+      <div class="n">19<em>+</em></div>
+      <div class="label">PhD &amp; MPhil Trainees</div>
+    </div>
+    <div class="stat reveal d3">
+      <div class="n">70<em>+</em></div>
+      <div class="label">Invited Lectures Worldwide</div>
+    </div>
+  </div>
+</div>
+
+<!-- ============== ABOUT ============== -->
+<section class="section" id="about">
+  <div class="container">
+    <div class="section-head">
+      <div class="label">
+        <div class="eyebrow"><span class="num">02</span>About</div>
+      </div>
+      <h2 class="display">From <em>atomic-resolution</em> mechanism<br>to drug candidate.</h2>
+    </div>
+
+    <div class="about-body">
+      <div class="drop">
+        <div class="eyebrow">Short Bio</div>
+      </div>
+      <div class="bio">
+        <p>Dr. Yang Du is a tenured Associate Professor at the School of Medicine, The Chinese University of Hong Kong, Shenzhen, and a Principal Investigator at the <strong>Kobilka Institute of Innovative Drug Discovery (KIIDD)</strong>. He received his B.Sc. from Xiangya School of Medicine, Central South University, and his Ph.D. from the University of Science and Technology of China.</p>
+
+        <p>In 2012 he joined the laboratory of Prof. <strong>Brian Kobilka — 2012 Nobel Laureate in Chemistry</strong> — at Stanford University, where his postdoctoral and staff-scientist research on G protein-coupled receptors was supported by a full fellowship from the American Heart Association. He was offered a tenure-track Assistant Professorship at the University of Michigan Medical School, but in 2017 he chose to help <em>found</em> the Kobilka Institute at CUHK-Shenzhen, establishing his independent group there in 2019.</p>
+
+        <p>His laboratory has authored more than <strong>80 peer-reviewed papers</strong>, including first- or corresponding-author articles in <em>Cell, Science, Cell Research, Cell Discovery, Cell Reports, Science Advances, Nature Communications, JACS</em> and <em>PNAS</em>. As a co-inventor with Prof. Brian Shoichet (UCSF), he holds a U.S. patent on a non-addictive analgesic discovered through structure-based design. He is a <strong>Fellow of the Royal Society of Medicine (UK)</strong>, a <strong>Chang-Jiang Young Scholar</strong>, and recipient of the inaugural Young Researcher Award at CUHK-Shenzhen.</p>
+      </div>
+    </div>
+
+    <!-- Career timeline -->
+    <div class="timeline">
+      <div class="timeline-title">— Education &amp; Career Trajectory</div>
+      <div class="timeline-row">
+        <div class="year">2023 — Present</div>
+        <div class="role">Tenured Associate Professor &amp; PI</div>
+        <div class="place">School of Medicine, CUHK-Shenzhen · Kobilka Institute of Innovative Drug Discovery</div>
+      </div>
+      <div class="timeline-row">
+        <div class="year">2019 — 2023</div>
+        <div class="role">Tenure-Track Assistant Professor &amp; PI</div>
+        <div class="place">School of Medicine, CUHK-Shenzhen</div>
+      </div>
+      <div class="timeline-row">
+        <div class="year">2017 — 2019</div>
+        <div class="role">Research Scientist</div>
+        <div class="place">Lab of Prof. Brian Kobilka · Stanford University School of Medicine</div>
+      </div>
+      <div class="timeline-row">
+        <div class="year">2012 — 2016</div>
+        <div class="role">Postdoctoral Scholar</div>
+        <div class="place">Lab of Prof. Brian Kobilka · Dept. of Molecular &amp; Cellular Physiology, Stanford</div>
+      </div>
+      <div class="timeline-row">
+        <div class="year">2006 — 2011</div>
+        <div class="role">Ph.D., School of Life Sciences</div>
+        <div class="place">University of Science and Technology of China (USTC)</div>
+      </div>
+      <div class="timeline-row">
+        <div class="year">2001 — 2005</div>
+        <div class="role">B.Sc., Biological Sciences · B.Sc. Minor, Chemical Engineering</div>
+        <div class="place">Xiang-Ya School of Medicine · Central South University</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== RESEARCH ============== -->
+<section class="section" id="research" style="background: var(--paper-2);">
+  <div class="container">
+    <div class="section-head">
+      <div class="label">
+        <div class="eyebrow"><span class="num">03</span>Research</div>
+      </div>
+      <h2 class="display">Decoding the molecular logic<br>of <em>GPCR signaling.</em></h2>
+    </div>
+
+    <p class="research-intro reveal">
+      G protein-coupled receptors are the largest superfamily of human membrane proteins and the molecular targets of more than <strong>one third of all approved drugs</strong>. The Du laboratory integrates single-particle cryo-EM, X-ray crystallography, reconstitution biochemistry, and quantitative cellular pharmacology with deep-learning structure prediction (AlphaFold / RoseTTAFold-class), molecular-dynamics simulation and ultra-large-scale virtual screening of <em>billion-compound</em> chemical libraries.
+    </p>
+
+    <div class="pillars">
+      <!-- PILLAR 01 - Cryo-EM density -->
+      <div class="pillar reveal">
+        <div class="num">— I. Mechanism</div>
+        <div class="vis" aria-label="Cryo-EM density map of receptor-G protein complex">
+          <svg viewBox="0 0 320 200" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <radialGradient id="cryo1" cx="50%" cy="42%" r="40%">
+                <stop offset="0%" stop-color="#862140" stop-opacity="0.55"/>
+                <stop offset="60%" stop-color="#862140" stop-opacity="0.1"/>
+                <stop offset="100%" stop-color="#862140" stop-opacity="0"/>
+              </radialGradient>
+              <radialGradient id="cryo2" cx="50%" cy="78%" r="35%">
+                <stop offset="0%" stop-color="#2c4a5e" stop-opacity="0.55"/>
+                <stop offset="100%" stop-color="#2c4a5e" stop-opacity="0"/>
+              </radialGradient>
+              <pattern id="gridP" width="10" height="10" patternUnits="userSpaceOnUse">
+                <path d="M 10 0 L 0 0 0 10" fill="none" stroke="#161d2e" stroke-width="0.3" opacity="0.18"/>
+              </pattern>
+            </defs>
+            <rect width="320" height="200" fill="url(#gridP)"/>
+
+            <!-- Receptor density (top) -->
+            <ellipse cx="160" cy="78" rx="62" ry="48" fill="url(#cryo1)"/>
+            <!-- G protein density (bottom) -->
+            <ellipse cx="160" cy="148" rx="80" ry="40" fill="url(#cryo2)"/>
+
+            <!-- Density contour lines -->
+            <g fill="none" stroke="#862140" stroke-width="0.6" opacity="0.55">
+              <ellipse cx="160" cy="78" rx="55" ry="42"/>
+              <ellipse cx="160" cy="78" rx="38" ry="30"/>
+              <ellipse cx="160" cy="78" rx="20" ry="16"/>
+            </g>
+            <g fill="none" stroke="#2c4a5e" stroke-width="0.6" opacity="0.55">
+              <ellipse cx="160" cy="148" rx="68" ry="32"/>
+              <ellipse cx="160" cy="148" rx="48" ry="22"/>
+              <ellipse cx="160" cy="148" rx="22" ry="12"/>
+            </g>
+
+            <!-- Membrane indicator -->
+            <line x1="40" y1="110" x2="280" y2="110" stroke="#161d2e" stroke-width="0.5" stroke-dasharray="3 3" opacity="0.5"/>
+
+            <!-- Scale bar -->
+            <line x1="240" y1="180" x2="280" y2="180" stroke="#161d2e" stroke-width="1.2"/>
+            <text x="260" y="195" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="#6e7383">20 Å</text>
+
+            <!-- Labels -->
+            <text x="50" y="78" font-family="JetBrains Mono" font-size="8" fill="#862140" letter-spacing="1">RECEPTOR</text>
+            <text x="50" y="148" font-family="JetBrains Mono" font-size="8" fill="#2c4a5e" letter-spacing="1">Gα · Gβγ</text>
+          </svg>
+        </div>
+        <h3>Atomic-resolution structures of <em>receptor — transducer</em> complexes</h3>
+        <p>High-resolution cryo-EM and X-ray structures of therapeutically important GPCRs bound to endogenous ligands, drug candidates, and downstream transducers (Gs, Gi/o, Gq, β-arrestin). Recent contributions include the V2-vasopressin–Gs, TGR5–Gs, GPR17–Gi, GPR21, GPR88, GPR3 and the kisspeptin receptor complexes.</p>
+        <div class="keywords">
+          <span>Cryo-EM</span><span>X-ray</span><span>Class A GPCR</span><span>Heterotrimeric G proteins</span>
+        </div>
+      </div>
+
+      <!-- PILLAR 02 - Allosteric / biased signaling -->
+      <div class="pillar reveal d1">
+        <div class="num">— II. Pharmacology</div>
+        <div class="vis" aria-label="Biased and allosteric signaling pathways">
+          <svg viewBox="0 0 320 200" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <pattern id="gridP2" width="10" height="10" patternUnits="userSpaceOnUse">
+                <path d="M 10 0 L 0 0 0 10" fill="none" stroke="#161d2e" stroke-width="0.3" opacity="0.18"/>
+              </pattern>
+            </defs>
+            <rect width="320" height="200" fill="url(#gridP2)"/>
+
+            <!-- Central receptor node -->
+            <g transform="translate(160,100)">
+              <circle r="28" fill="#f1ead9" stroke="#161d2e" stroke-width="1.2"/>
+              <circle r="20" fill="none" stroke="#862140" stroke-width="0.8" stroke-dasharray="1.5 1.5"/>
+              <text y="-2" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="#161d2e" letter-spacing="1">GPCR</text>
+              <text y="10" text-anchor="middle" font-family="JetBrains Mono" font-size="7" fill="#862140">α2A · μOR</text>
+            </g>
+
+            <!-- Ligand at top -->
+            <g transform="translate(160,38)">
+              <polygon points="-8,8 0,-8 8,8" fill="#b08434" stroke="#161d2e" stroke-width="0.6"/>
+            </g>
+            <line x1="160" y1="50" x2="160" y2="72" stroke="#161d2e" stroke-width="1"/>
+
+            <!-- Pathway 1: G protein (left, favored) -->
+            <g>
+              <line x1="135" y1="115" x2="65" y2="160" stroke="#862140" stroke-width="2"/>
+              <circle cx="60" cy="163" r="14" fill="#862140" opacity="0.85"/>
+              <text x="60" y="167" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="#f1ead9">G</text>
+              <text x="60" y="188" text-anchor="middle" font-family="JetBrains Mono" font-size="7" fill="#862140" letter-spacing="1">ANALGESIA</text>
+            </g>
+
+            <!-- Pathway 2: β-arrestin (right, dampened) -->
+            <g>
+              <line x1="185" y1="115" x2="255" y2="160" stroke="#161d2e" stroke-width="1" stroke-dasharray="3 3" opacity="0.5"/>
+              <circle cx="260" cy="163" r="14" fill="none" stroke="#161d2e" stroke-width="1" opacity="0.5"/>
+              <text x="260" y="167" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="#161d2e" opacity="0.5">β-arr</text>
+              <text x="260" y="188" text-anchor="middle" font-family="JetBrains Mono" font-size="7" fill="#6e7383" letter-spacing="1">SIDE EFFECT</text>
+            </g>
+
+            <!-- Allosteric pocket indicator -->
+            <g transform="translate(218,75)">
+              <circle r="6" fill="none" stroke="#2c4a5e" stroke-width="1"/>
+              <circle r="2" fill="#2c4a5e"/>
+              <text x="14" y="3" font-family="JetBrains Mono" font-size="7" fill="#2c4a5e" letter-spacing="1">ALLOSTERIC</text>
+            </g>
+
+            <!-- Title -->
+            <text x="20" y="22" font-family="JetBrains Mono" font-size="8" fill="#6e7383" letter-spacing="1">BIASED · ALLOSTERIC · ORPHAN</text>
+          </svg>
+        </div>
+        <h3>Biased, allosteric &amp; <em>orphan receptor</em> signaling</h3>
+        <p>By stabilizing distinct functional states of pharmacologically challenging receptors, the lab maps the conformational logic that links ligand chemistry to G-protein- versus arrestin-biased outputs, and identifies allosteric pockets that can be leveraged to design pathway-selective drugs with cleaner therapeutic windows.</p>
+        <div class="keywords">
+          <span>Biased agonism</span><span>Allostery</span><span>Orphan GPCRs</span><span>Conformational dynamics</span>
+        </div>
+      </div>
+
+      <!-- PILLAR 03 - AI / virtual screening -->
+      <div class="pillar reveal d2">
+        <div class="num">— III. Discovery</div>
+        <div class="vis" aria-label="AI-augmented virtual screening of ultra-large chemical libraries">
+          <svg viewBox="0 0 320 200" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <pattern id="gridP3" width="10" height="10" patternUnits="userSpaceOnUse">
+                <path d="M 10 0 L 0 0 0 10" fill="none" stroke="#161d2e" stroke-width="0.3" opacity="0.18"/>
+              </pattern>
+              <radialGradient id="cloud" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="#b08434" stop-opacity="0.4"/>
+                <stop offset="100%" stop-color="#b08434" stop-opacity="0"/>
+              </radialGradient>
+            </defs>
+            <rect width="320" height="200" fill="url(#gridP3)"/>
+
+            <!-- Compound cloud (left): many small dots -->
+            <ellipse cx="75" cy="100" rx="55" ry="60" fill="url(#cloud)"/>
+            <g fill="#161d2e">
+              <!-- Random-looking dots arrangement -->
+              <circle cx="40" cy="70" r="1.5"/><circle cx="55" cy="60" r="1.2"/><circle cx="75" cy="55" r="1.8"/>
+              <circle cx="95" cy="65" r="1.4"/><circle cx="110" cy="80" r="1.6"/><circle cx="30" cy="95" r="1.5"/>
+              <circle cx="50" cy="85" r="1.3"/><circle cx="70" cy="78" r="1.7"/><circle cx="90" cy="92" r="1.5"/>
+              <circle cx="108" cy="105" r="1.4"/><circle cx="35" cy="115" r="1.8"/><circle cx="55" cy="108" r="1.5"/>
+              <circle cx="75" cy="100" r="2.2" fill="#862140"/><circle cx="95" cy="118" r="1.5"/>
+              <circle cx="115" cy="125" r="1.4"/><circle cx="45" cy="135" r="1.5"/><circle cx="65" cy="130" r="1.6"/>
+              <circle cx="85" cy="140" r="1.5"/><circle cx="105" cy="148" r="1.4"/><circle cx="40" cy="155" r="1.3"/>
+              <circle cx="60" cy="148" r="1.4"/><circle cx="80" cy="158" r="1.6"/><circle cx="100" cy="160" r="1.4"/>
+              <circle cx="120" cy="98" r="1.3"/><circle cx="20" cy="105" r="1.4"/><circle cx="25" cy="125" r="1.2"/>
+            </g>
+            <text x="75" y="178" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="#161d2e" letter-spacing="1">10⁹ COMPOUNDS</text>
+
+            <!-- Funnel arrows -->
+            <g stroke="#161d2e" fill="none" stroke-width="1">
+              <path d="M 130 95 L 175 100"/>
+              <path d="M 130 105 L 175 100"/>
+              <polygon points="175 100 168 96 168 104" fill="#161d2e"/>
+            </g>
+
+            <!-- AI / structure box (middle) -->
+            <g transform="translate(185,75)">
+              <rect width="60" height="50" fill="#f1ead9" stroke="#161d2e" stroke-width="1.2"/>
+              <text x="30" y="18" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="#862140" font-weight="500">AI</text>
+              <text x="30" y="32" text-anchor="middle" font-family="JetBrains Mono" font-size="7" fill="#161d2e">+</text>
+              <text x="30" y="45" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="#161d2e">DOCK</text>
+            </g>
+
+            <g stroke="#161d2e" fill="none" stroke-width="1">
+              <path d="M 250 100 L 270 100"/>
+              <polygon points="270 100 263 96 263 104" fill="#161d2e"/>
+            </g>
+
+            <!-- Selected hits (right): few triangle hits -->
+            <g transform="translate(285,90)">
+              <polygon points="-6,6 0,-6 6,6" fill="#862140"/>
+            </g>
+            <g transform="translate(285,110)">
+              <polygon points="-6,6 0,-6 6,6" fill="#b08434"/>
+            </g>
+            <text x="285" y="135" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="#862140" letter-spacing="1">HITS</text>
+
+            <text x="20" y="22" font-family="JetBrains Mono" font-size="8" fill="#6e7383" letter-spacing="1">ULTRA-LARGE VIRTUAL SCREENING</text>
+          </svg>
+        </div>
+        <h3>AI- &amp; structure-based discovery of <em>safer therapeutics</em></h3>
+        <p>In long-standing collaboration with Prof. Brian Shoichet (UCSF), the group has contributed to the structure-guided design of non-addictive analgesics — including μ-opioid receptor agonists (e.g. <em>PZM21</em>) and α2A-AR agonists that decouple analgesia from sedation, respiratory depression and reward — powered by ultra-large-library docking and deep-learning structure prediction.</p>
+        <div class="keywords">
+          <span>AlphaFold</span><span>Virtual screening</span><span>Generative chemistry</span><span>Nanobody design</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== PUBLICATIONS ============== -->
+<section class="section pub-section" id="publications">
+  <div class="container">
+    <div class="section-head">
+      <div class="label">
+        <div class="eyebrow"><span class="num">04</span>Publications</div>
+      </div>
+      <h2 class="display">Selected <em>recent</em> articles.</h2>
+    </div>
+
+    <p class="research-intro" style="margin-bottom:48px;">
+      Author convention: <strong>* co-first authorship · # co-corresponding authorship · Du Y</strong> highlighted. Selected from 80+ peer-reviewed publications; full list available on request.
+    </p>
+
+    <div class="pubs">
+
+      <article class="pub reveal">
+        <div class="pub-no">80</div>
+        <div class="pub-year">2026</div>
+        <div class="pub-content">
+          <div class="pub-title">Development of a novel peripherally acting α<sub>2A</sub>-adrenergic receptor antagonist for anti-diabetic therapy</div>
+          <div class="pub-authors">Hong F*, Wang J*, Chen D*, Wang Q*, Gan S*, … <b>Du Y#</b>, Nan F#, Chen Z#</div>
+        </div>
+        <div class="pub-venue">Science <span class="impact">UNDER REVISION</span></div>
+      </article>
+
+      <article class="pub reveal">
+        <div class="pub-no">79</div>
+        <div class="pub-year">2026</div>
+        <div class="pub-content">
+          <div class="pub-title">A highly sensitive genetically encoded red cAMP sensor for multiplex imaging <em>in vivo</em></div>
+          <div class="pub-authors">Wang L*, Li L*, Li X*, Guo L*, Luo B*, … <b>Du Y#</b>, Zhong H#, Li Y#, Chu J#</div>
+        </div>
+        <div class="pub-venue">Nature Commun.</div>
+      </article>
+
+      <article class="pub reveal">
+        <div class="pub-no">77</div>
+        <div class="pub-year">2025</div>
+        <div class="pub-content">
+          <div class="pub-title">Structures of GPCR HCAR1 in complex with G<sub>i1</sub> reveal the mechanistic basis for ligand recognition and agonist selectivity</div>
+          <div class="pub-authors">Pan X*, Ye F*, Ning P*, Yu Y*, … Zhu L#, Qian C#, Gong K#, <b>Du Y#</b></div>
+        </div>
+        <div class="pub-venue">PLoS Biology</div>
+      </article>
+
+      <article class="pub reveal">
+        <div class="pub-no">76</div>
+        <div class="pub-year">2025</div>
+        <div class="pub-content">
+          <div class="pub-title">Dual-locking the SARS-CoV-2 spike trimer: an amphipathic molecular “bolt” stabilizes conserved druggable interfaces</div>
+          <div class="pub-authors">Li S*, Ye F*, Zheng Y*, Wang J*, Peng H*, … Xu K#, <b>Du Y#</b>, Li H#</div>
+        </div>
+        <div class="pub-venue">Adv. Science</div>
+      </article>
+
+      <article class="pub reveal">
+        <div class="pub-no">75</div>
+        <div class="pub-year">2023</div>
+        <div class="pub-content">
+          <div class="pub-title">Single hormone or synthetic agonist induces G<sub>s</sub>/G<sub>i</sub> coupling selectivity of EP receptors via distinct binding modes and propagating paths</div>
+          <div class="pub-authors">Huang S, Xiong MY, Liu L, Mu J, … <b>Du Y#</b>, Sun JP#</div>
+        </div>
+        <div class="pub-venue">PNAS</div>
+      </article>
+
+      <article class="pub reveal">
+        <div class="pub-no">70</div>
+        <div class="pub-year">2024</div>
+        <div class="pub-content">
+          <div class="pub-title">Structural basis for the ligand recognition and G-protein subtype selectivity of the kisspeptin receptor</div>
+          <div class="pub-authors">Wu Z*, Chen G*, Qiu C*, Yan X, Xu L, Jiang S, … Chen J#, <b>Du Y#</b></div>
+        </div>
+        <div class="pub-venue">Science Advances</div>
+      </article>
+
+      <article class="pub reveal">
+        <div class="pub-no">68</div>
+        <div class="pub-year">2024</div>
+        <div class="pub-content">
+          <div class="pub-title">Calcineurin-fusion facilitates cryo-EM structure determination of a Family A GPCR</div>
+          <div class="pub-authors">Xu J, Chen G, Wang H, Cao S, Heng J, Deupi X, <b>Du Y#</b>, Kobilka BK#</div>
+        </div>
+        <div class="pub-venue">PNAS</div>
+      </article>
+
+      <article class="pub reveal">
+        <div class="pub-no">57</div>
+        <div class="pub-year">2022</div>
+        <div class="pub-content">
+          <div class="pub-title">Structure-based discovery of nonopioid analgesics acting through the α<sub>2A</sub>-adrenergic receptor</div>
+          <div class="pub-authors">Fink EA*, Xu J*, Hübner H*, Braz J*, Seemann P*, … <b>Du Y#</b>, Shoichet BK#, Basbaum AI#, Gmeiner P#</div>
+        </div>
+        <div class="pub-venue">Science <span class="impact">CO-CORR</span></div>
+      </article>
+
+      <article class="pub reveal">
+        <div class="pub-no">50</div>
+        <div class="pub-year">2021</div>
+        <div class="pub-content">
+          <div class="pub-title">Ligand recognition and allosteric regulation of dopamine D<sub>1</sub> receptor–G<sub>s</sub> signaling complexes</div>
+          <div class="pub-authors">Xiao P*, Yan W*, Gou L*, Zhong YN*, Kong L*, … <b>Du Y#</b>, Zhang L#, Yu X#, Shao Z#</div>
+        </div>
+        <div class="pub-venue">Cell <span class="impact">CO-CORR</span></div>
+      </article>
+
+      <article class="pub reveal">
+        <div class="pub-no">49</div>
+        <div class="pub-year">2021</div>
+        <div class="pub-content">
+          <div class="pub-title">Cryo-EM structure of the AVP–vasopressin receptor 2–G<sub>s</sub> signaling complex</div>
+          <div class="pub-authors">Wang L*, Xu J*, Cao S, Sun D, Liu H, Liu Z, <b>Du Y#</b>, Zhang C#</div>
+        </div>
+        <div class="pub-venue">Cell Research</div>
+      </article>
+
+      <article class="pub reveal">
+        <div class="pub-no">39</div>
+        <div class="pub-year">2019</div>
+        <div class="pub-content">
+          <div class="pub-title">Assembly of a GPCR–G protein complex</div>
+          <div class="pub-authors"><b>Du Y*</b>, Duc NM*, Rasmussen SGF*, Hilger D, Kubiak X, Wang L, … Lodowski DT, Kobilka BK, Chung KY</div>
+        </div>
+        <div class="pub-venue">Cell <span class="impact">CO-1ST</span></div>
+      </article>
+
+      <article class="pub reveal">
+        <div class="pub-no">30</div>
+        <div class="pub-year">2017</div>
+        <div class="pub-content">
+          <div class="pub-title">Structural and functional analysis of a β<sub>2</sub>-adrenergic receptor complex with GRK5</div>
+          <div class="pub-authors">Komolov KE*, <b>Du Y*</b>, Duc NM, Betz R, Rodrigues J, Leib RD, … Benovic JL, Kobilka BK</div>
+        </div>
+        <div class="pub-venue">Cell <span class="impact">FEATURED</span></div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============== HONORS ============== -->
+<section class="section" id="honors">
+  <div class="container">
+    <div class="section-head">
+      <div class="label">
+        <div class="eyebrow"><span class="num">05</span>Honors</div>
+      </div>
+      <h2 class="display">Recognition &amp; <em>fellowship.</em></h2>
+    </div>
+
+    <div class="honors-grid">
+      <div class="honor"><div class="name">Fellow, <em>Royal Society of Medicine</em> (UK)</div><div class="yr">2024</div></div>
+      <div class="honor"><div class="name"><em>Chang-Jiang Young Scholar</em>, Ministry of Education (renewed)</div><div class="yr">2021 · 2024</div></div>
+      <div class="honor"><div class="name">Inaugural <em>Young Researcher Award</em>, CUHK-Shenzhen</div><div class="yr">2021</div></div>
+      <div class="honor"><div class="name">Young Outstanding Talent, Guangdong <em>Zhu-Jiang</em> Scheme</div><div class="yr">2020</div></div>
+      <div class="honor"><div class="name"><em>Presidential Exemplary Teaching Award</em>, CUHK-Shenzhen</div><div class="yr">2020</div></div>
+      <div class="honor"><div class="name">Shenzhen <em>Peacock Talent</em> (High-Caliber Overseas)</div><div class="yr">2019</div></div>
+      <div class="honor"><div class="name">Longgang Accredited Expert, <em>Shen-Long Talent</em></div><div class="yr">2020</div></div>
+      <div class="honor"><div class="name">Presidential Scholar, CUHK-Shenzhen</div><div class="yr">2019</div></div>
+      <div class="honor"><div class="name">Tenure-Track Assistant Professorship offer · <em>U. Michigan</em>, Ann Arbor</div><div class="yr">2018</div></div>
+      <div class="honor"><div class="name">CVI Postdoc Travel Award, <em>Stanford Cardiovascular Institute</em></div><div class="yr">2015</div></div>
+      <div class="honor"><div class="name">Postdoctoral Fellowship, <em>American Heart Association</em></div><div class="yr">2014</div></div>
+      <div class="honor"><div class="name">Presidential Award, <em>Chinese Academy of Sciences</em></div><div class="yr">2011</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== PEOPLE ============== -->
+<section class="section people-section" id="people">
+  <div class="container">
+    <div class="section-head">
+      <div class="label">
+        <div class="eyebrow"><span class="num">06</span>Lab</div>
+      </div>
+      <h2 class="display">The people who do<br>the <em>work.</em></h2>
+    </div>
+
+    <!-- Postdoc alumni who became PIs -->
+    <div class="alumni-block">
+      <div class="alumni-title">
+        <span>— Postdoctoral Alumni · Now Independent PIs</span>
+        <span class="count">04</span>
+      </div>
+      <div class="alumni-grid">
+        <div class="alumnus">
+          <div class="nm-cn">陈耕</div>
+          <div class="nm-en">Geng Chen</div>
+          <div class="pos">Associate Professor<br>Sun Yat-sen University</div>
+          <div class="yr">2018 — 2022</div>
+        </div>
+        <div class="alumnus">
+          <div class="nm-cn">高威</div>
+          <div class="nm-en">Wei Gao</div>
+          <div class="pos">Associate Professor<br>East China Normal University</div>
+          <div class="yr">2019 — 2023</div>
+        </div>
+        <div class="alumnus">
+          <div class="nm-cn">叶芳</div>
+          <div class="nm-en">Fang Ye</div>
+          <div class="pos">Assistant Professor<br>Guangxi University</div>
+          <div class="yr">2021 — 2024</div>
+        </div>
+        <div class="alumnus">
+          <div class="nm-cn">马丽娟</div>
+          <div class="nm-en">Lijuan Ma</div>
+          <div class="pos">Associate Professor<br>Sun Yat-sen University</div>
+          <div class="yr">2023 — 2025</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Current PhD students -->
+    <div class="alumni-block">
+      <div class="alumni-title">
+        <span>— PhD Students · Selected Current</span>
+        <span class="count">13</span>
+      </div>
+      <div class="alumni-grid">
+        <div class="alumnus"><div class="nm-cn">张炳皓</div><div class="nm-en">Binghao Zhang</div><div class="pos">PhD candidate</div><div class="yr">2021 — 2026</div></div>
+        <div class="alumnus"><div class="nm-cn">吴张松</div><div class="nm-en">Zhangsong Wu</div><div class="pos">PhD candidate</div><div class="yr">2022 — 2027</div></div>
+        <div class="alumnus"><div class="nm-cn">邱晨</div><div class="nm-en">Chen Qiu</div><div class="pos">PhD candidate</div><div class="yr">2021 — 2026</div></div>
+        <div class="alumnus"><div class="nm-cn">张芷艺</div><div class="nm-en">Zhiyi Zhang</div><div class="pos">PhD candidate</div><div class="yr">2021 — 2026</div></div>
+        <div class="alumnus"><div class="nm-cn">李卓寰</div><div class="nm-en">Zhuohuan Li</div><div class="pos">Co-supervised, Prof. Z. Zhang</div><div class="yr">2022 — 2027</div></div>
+        <div class="alumnus"><div class="nm-cn">宁沛若</div><div class="nm-en">Peiruo Ning</div><div class="pos">PhD candidate</div><div class="yr">2022 — 2027</div></div>
+        <div class="alumnus"><div class="nm-cn">刘一鸣</div><div class="nm-en">Yiming Liu</div><div class="pos">PhD candidate</div><div class="yr">2023 — 2027</div></div>
+        <div class="alumnus"><div class="nm-cn">孙源璐</div><div class="nm-en">Yuanlu Sun</div><div class="pos">PhD candidate</div><div class="yr">2023 — 2028</div></div>
+      </div>
+    </div>
+
+    <!-- MPhil students -->
+    <div class="alumni-block">
+      <div class="alumni-title">
+        <span>— MPhil Trainees</span>
+        <span class="count">06</span>
+      </div>
+      <div class="alumni-grid">
+        <div class="alumnus"><div class="nm-cn">徐乐之</div><div class="nm-en">Lezhi Xu</div><div class="pos">→ PhD, University of Hong Kong</div><div class="yr">graduated 2024</div></div>
+        <div class="alumnus"><div class="nm-cn">史庭屹</div><div class="nm-en">Tingyi Shi</div><div class="pos">→ PhD, University of Copenhagen</div><div class="yr">graduated 2024</div></div>
+        <div class="alumnus"><div class="nm-cn">曾子诚</div><div class="nm-en">Zicheng Zeng</div><div class="pos">→ continuing PhD, CUHK-SZ</div><div class="yr">2023 — 2025</div></div>
+        <div class="alumnus"><div class="nm-cn">龚宁劼</div><div class="nm-en">Ningji Gong</div><div class="pos">→ continuing PhD, CUHK-SZ</div><div class="yr">2024 — 2026</div></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============== TEACHING ============== -->
+<section class="section" id="teaching">
+  <div class="container">
+    <div class="section-head">
+      <div class="label">
+        <div class="eyebrow"><span class="num">07</span>Teaching</div>
+      </div>
+      <h2 class="display">Courses at <em>CUHK-Shenzhen.</em></h2>
+    </div>
+
+    <p class="research-intro" style="margin-bottom:48px;">
+      Responsible for six courses (five undergraduate, one postgraduate). Recipient of the <strong>Presidential Exemplary Teaching Award (2020)</strong> in recognition of consistently high evaluation scores and positive external reviews.
+    </p>
+
+    <div class="courses">
+      <div class="course">
+        <div class="code">BIO 2002</div>
+        <div class="ttl">Cell &amp; Molecular Biology</div>
+        <div class="level">Undergraduate</div>
+      </div>
+      <div class="course">
+        <div class="code">BIO 3204</div>
+        <div class="ttl">Genetic Engineering</div>
+        <div class="level">Undergraduate</div>
+      </div>
+      <div class="course">
+        <div class="code">BIO 3213 · 50%</div>
+        <div class="ttl">Protein Structure Analysis &amp; Proteomics</div>
+        <div class="level">Undergraduate</div>
+      </div>
+      <div class="course">
+        <div class="code">BIO 3901-4</div>
+        <div class="ttl">Research Internship</div>
+        <div class="level">Undergraduate · partly</div>
+      </div>
+      <div class="course">
+        <div class="code">BIO 2104</div>
+        <div class="ttl">Biochemistry Laboratory</div>
+        <div class="level">Undergraduate · partly</div>
+      </div>
+      <div class="course">
+        <div class="code">BSC 6001 · 50%</div>
+        <div class="ttl">Cell &amp; Molecular Biology</div>
+        <div class="level">Postgraduate · 2019—2024</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== CONTACT ============== -->
+<section class="contact-section" id="contact">
+  <div class="contact-bg" aria-hidden="true">
+    <svg viewBox="0 0 1280 600" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <pattern id="hexPat" width="60" height="52" patternUnits="userSpaceOnUse">
+          <polygon points="30,2 56,16 56,46 30,60 4,46 4,16" fill="none" stroke="#f1ead9" stroke-width="0.4"/>
+        </pattern>
+      </defs>
+      <rect width="1280" height="600" fill="url(#hexPat)"/>
+      <!-- floating molecule dots -->
+      <g fill="#d4b269" opacity="0.4">
+        <circle cx="200" cy="180" r="3"/><circle cx="350" cy="100" r="2"/>
+        <circle cx="900" cy="220" r="3"/><circle cx="1100" cy="380" r="2"/>
+        <circle cx="700" cy="450" r="3"/><circle cx="450" cy="500" r="2"/>
+        <circle cx="180" cy="430" r="2.5"/><circle cx="1050" cy="120" r="2.5"/>
+      </g>
+      <g stroke="#d4b269" stroke-width="0.5" opacity="0.3" fill="none">
+        <line x1="200" y1="180" x2="350" y2="100"/>
+        <line x1="900" y1="220" x2="1050" y2="120"/>
+        <line x1="700" y1="450" x2="450" y2="500"/>
+      </g>
+    </svg>
+  </div>
+
+  <div class="container">
+    <div class="section-head">
+      <div class="label">
+        <div class="eyebrow"><span class="num">08</span>Contact</div>
+      </div>
+      <h2 class="display">Get in <em>touch.</em></h2>
+    </div>
+
+    <div class="contact-grid">
+      <div class="contact-block">
+        <div class="lbl">— Mailing Address</div>
+        <div class="val">
+          RB705-5, Tuhuilong Building<br>
+          2001 Longxiang Avenue, Longgang District<br>
+          Shenzhen, Guangdong, China
+          <span class="sm cn">广东省深圳市龙岗区龙翔大道 2001 号 涂辉龙楼 RB705-5</span>
+        </div>
+
+        <div class="lbl">— Email</div>
+        <div class="val"><a href="mailto:yangdu@cuhk.edu.cn">yangdu@cuhk.edu.cn</a></div>
+
+        <div class="lbl">— Telephone</div>
+        <div class="val">+86 755 23517816 <span class="sm">Office</span></div>
+      </div>
+
+      <div class="join">
+        <h4>Join the <em>laboratory.</em></h4>
+        <p>We are continuously recruiting motivated students and postdoctoral fellows interested in the intersection of structural biology, molecular pharmacology, and AI-driven drug discovery.</p>
+        <ul>
+          <li>Postdoctoral fellowships in cryo-EM &amp; GPCR pharmacology</li>
+          <li>PhD admission through the CUHK-Shenzhen MED programs</li>
+          <li>MPhil &amp; visiting student rotations</li>
+          <li>Undergraduate research internships (BIO 3901-4)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== FOOTER ============== -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div>© Yang Du Laboratory · Kobilka Institute of Innovative Drug Discovery · CUHK-Shenzhen</div>
+    <div>School of Medicine · 港中深医学院 · 杜洋实验室</div>
+  </div>
+</footer>
+
+<script>
+  // Reveal-on-scroll
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+
+</body>
+</html>
